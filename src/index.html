@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="adminApp" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/vendor/jquery.stellar.js"></script>
+
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="js/vendor/angular.js"></script>
+        <script src="js/vendor/angular-route.min.js"></script>
+        <script src="js/vendor/ui-bootstrap-tpls-2.4.0.min.js"></script>
+        <script type="text/javascript" src="js/vendor/angular-filter.js"></script>
+        <script src="js/vendor/bootstrap.js"></script>
+        <script src="js/controllers.js"></script>
+    </head>
+    <body ng-controller="AdminController">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            Wybierz sklep:<br>
+            <select class="form-control" ng-init="cc={shop: ''}" ng-change="shopSelected()" ng-model="selectedShop">
+                <option value=""></option>
+                <option ng-repeat="shop in shops" value="{{shop.id}}">{{shop.name}}</option>
+            </select>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-7">
+            Dodaj sklep:<br>
+            <ng-form ng-submit="addShop()">
+                Nazwa: <input type="text" ng-model="newShopName" required><br>
+                Ilość regałów (kolumny): <input type="number" ng-model="newShopColumnCount" required><br>
+                Ilość regałów (rzędy): <input type="number" ng-model="newShopRowCount" required><br>
+                <input type="submit" ng-click="addShop()" value="Dodaj sklep">
+            </ng-form>
+        </div>
+    </div>
+    <br><br>
+    <div class="row" ng-hide="!isShopSelected()">
+        <div class="col-sm-1"></div>
+        <ng-form class="col-sm-6" ng-submit="addProduct()">
+            Nazwa: <input type="text" ng-model="product.name" required><br>
+            Numer kolumny: <input type="number" ng-model="productColumnNumber" required><br>
+            Numer wiersza: <input type="number" ng-model="productRowNumber" required><br>
+            <input type="submit" ng-click="addProduct()" value="Dodaj produkt">
+        </ng-form>
+
+        <table class="table col-sm-5">
+            <tr>
+                <th>Nazwa</th>
+                <th>Kolumna</th>
+                <th>Rząd</th>
+                <th>Usuń</th>
+            </tr>
+            <tr ng-repeat="item in products">
+                <td>{{item.name}}</td>
+                <td>{{item.columnNumber}}</td>
+                <td>{{item.rowNumber}}</td>
+                <td><button ng-click="deleteProduct(item.id)">Usuń</button></td>
+            </tr>
+        </table>
+    </div>
+    </body>
+</html>
