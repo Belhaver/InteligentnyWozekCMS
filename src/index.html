@@ -40,6 +40,7 @@
                 Ilość regałów (kolumny): <input type="number" ng-model="newShopColumnCount" required><br>
                 Ilość regałów (rzędy): <input type="number" ng-model="newShopRowCount" required><br>
                 <input type="submit" ng-click="addShop()" value="Dodaj sklep">
+                <div ng-hide="isShopDataGood()">Wprowadź liczbę kolumn i wierszy!</div>
             </ng-form>
         </div>
     </div>

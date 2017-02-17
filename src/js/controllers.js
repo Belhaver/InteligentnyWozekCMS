@@ -8,9 +8,9 @@ adminApp.controller('AdminController', function($scope, $http) {
     $scope.productRowNumber;
     $scope.selectedShop = "";
     $scope.shops = [];
-    $scope.newShopName;
-    $scope.newShopColumnCount;
-    $scope.newShopRowCount;
+    $scope.newShopName = "";
+    $scope.newShopColumnCount = 0;
+    $scope.newShopRowCount = 0;
 
     $http.get("http://localhost:8080/Serwer/map/getShops")
         .then(function(response) {
@@ -19,6 +19,7 @@ adminApp.controller('AdminController', function($scope, $http) {
     });
 
     $scope.addShop = function() {
+        if (!$scope.isShopDataGood()) return;
         $http.get("http://localhost:8080/Serwer/map/addShop?name=" + $scope.newShopName +
             "&columnCount=" + $scope.newShopColumnCount + "&rowCount=" + $scope.newShopRowCount)
             .then(function (response) {
@@ -34,6 +35,13 @@ adminApp.controller('AdminController', function($scope, $http) {
         } else {
             return true;
         }
+    }
+
+    $scope.isShopDataGood = function () {
+        if ($scope.newShopName != "" && $scope.newShopColumnCount == 0 || $scope.newShopRowCount == 0) {
+            return false;
+        }
+        return true;
     }
 
     $scope.shopSelected = function () {
